@@ -1,0 +1,22 @@
+{
+  "pages": {
+    "/page": [
+      "static/chunks/Work_Email-sender_src_app_globals_83c8329f.css",
+      "static/chunks/Work_Email-sender_src_c06f326a._.js",
+      "static/chunks/7a329_04d69c78._.js",
+      "static/chunks/Work_Email-sender_src_app_layout_tsx_75883a4f._.js",
+      "static/chunks/Work_Email-sender_src_app_global-error_tsx_21c5489b._.js",
+      "static/chunks/Work_Email-sender_src_app_global-error_tsx_cf5d718d._.js",
+      "static/chunks/7a329_a9245724._.js",
+      "static/chunks/Work_Email-sender_src_60d7be95._.js",
+      "static/chunks/Work_Email-sender_src_app_page_tsx_cf5d718d._.js",
+      "static/chunks/[turbopack]_browser_dev_hmr-client_hmr-client_ts_4fa45908._.js",
+      "static/chunks/7a329_next_dist_compiled_eaac27c5._.js",
+      "static/chunks/7a329_next_dist_client_842dc2db._.js",
+      "static/chunks/7a329_next_dist_70e71413._.js",
+      "static/chunks/7a329_@swc_helpers_cjs_b5069c95._.js",
+      "static/chunks/Work_Email-sender_e69f0d32._.js",
+      "static/chunks/Work_Email-sender_7bc70129._.js"
+    ]
+  }
+}

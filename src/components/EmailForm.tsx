@@ -130,7 +130,7 @@ export default function EmailForm() {
               onChange={handleChange}
               disabled={isLoading}
               className="transition-all"
-              // autocomplete="off"
+              autocomplete="off"
             />
           </div>
 
