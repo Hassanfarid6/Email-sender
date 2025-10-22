@@ -12,38 +12,44 @@ app.use(express.json());
 
 // Email sending endpoint
 app.post('/api/send-email', async (req, res) => {
-  const { to, subject, message } = req.body;
+  const { from, password, to, subject, message } = req.body;
 
   // Validation
-  if (!to || !subject || !message) {
+  if (!from || !password || !to || !subject || !message) {
     return res.status(400).json({
       success: false,
-      error: 'Please provide recipient email, subject, and message'
+      error: 'Please provide sender email, password, recipient email, subject, and message'
     });
   }
 
   // Email validation
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(from)) {
+    return res.status(400).json({
+      success: false,
+      error: 'Please provide a valid sender email address'
+    });
+  }
   if (!emailRegex.test(to)) {
     return res.status(400).json({
       success: false,
-      error: 'Please provide a valid email address'
+      error: 'Please provide a valid recipient email address'
     });
   }
 
   try {
-    // Create transporter
+    // Create transporter with dynamic credentials
     const transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS
+        user: from,
+        pass: password
       }
     });
 
     // Email options
     const mailOptions = {
-      from: process.env.EMAIL_USER,
+      from: from,
       to: to,
       subject: subject,
       text: message,
@@ -69,7 +75,7 @@ app.post('/api/send-email', async (req, res) => {
     console.error('Error sending email:', error);
     res.status(500).json({
       success: false,
-      error: 'Failed to send email. Please check your email configuration.',
+      error: 'Failed to send email. Please check your email credentials.',
       details: error.message
     });
   }
@@ -86,5 +92,5 @@ app.get('/api/health', (req, res) => {
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
-  console.log(`Email service configured with: ${process.env.EMAIL_USER || 'No email configured'}`);
+  console.log('Email service ready - credentials will be provided per request');
 });

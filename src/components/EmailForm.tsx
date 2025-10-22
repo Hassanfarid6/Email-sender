@@ -11,6 +11,8 @@ import { toast } from "sonner";
 
 export default function EmailForm() {
   const [formData, setFormData] = useState({
+    from: "",
+    password: "",
     to: "",
     subject: "",
     message: ""
@@ -26,14 +28,18 @@ export default function EmailForm() {
   };
 
   const validateForm = () => {
-    if (!formData.to || !formData.subject || !formData.message) {
+    if (!formData.from || !formData.password || !formData.to || !formData.subject || !formData.message) {
       toast.error("All fields are required");
       return false;
     }
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.from)) {
+      toast.error("Please enter a valid sender email address");
+      return false;
+    }
     if (!emailRegex.test(formData.to)) {
-      toast.error("Please enter a valid email address");
+      toast.error("Please enter a valid recipient email address");
       return false;
     }
 
@@ -65,6 +71,8 @@ export default function EmailForm() {
         
         // Reset form
         setFormData({
+          from: "",
+          password: "",
           to: "",
           subject: "",
           message: ""
@@ -97,6 +105,35 @@ export default function EmailForm() {
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit} className="space-y-4">
+          <div className="space-y-2">
+            <Label htmlFor="from">Your Email (Sender) *</Label>
+            <Input
+              id="from"
+              name="from"
+              type="email"
+              placeholder="your-email@gmail.com"
+              value={formData.from}
+              onChange={handleChange}
+              disabled={isLoading}
+              className="transition-all"
+            />
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="password">Email Password *</Label>
+            <Input
+              id="password"
+              name="password"
+              type="password"
+              placeholder="Your email app password"
+              value={formData.password}
+              onChange={handleChange}
+              disabled={isLoading}
+              className="transition-all"
+              // autocomplete="off"
+            />
+          </div>
+
           <div className="space-y-2">
             <Label htmlFor="to">Recipient Email *</Label>
             <Input
